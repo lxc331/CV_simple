@@ -33,13 +33,13 @@ class LeNet(nn.Module):
         x = self.f7(x)
         return x
 
-if __name__ == '__main__': # 用主函数测试模型的前向传播
-    # 测试模型的前向传播
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    # 实例化模型
-    model = LeNet().to(device) # 将模型移动到 GPU 上或者 CPU 上
-    # 打印模型的结构, 用 summary 函数，它的作用是打印模型的结构，包括层的类型、参数数量、输出大小等
-    print(summary(model, (1, 28, 28))) # 打印模型的结构，输入数据的大小为 (1, 28, 28)，即 1 通道的 28x28 图像
+# if __name__ == '__main__': # 用主函数测试模型的前向传播
+#     # 测试模型的前向传播
+#     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+#     # 实例化模型
+#     model = LeNet().to(device) # 将模型移动到 GPU 上或者 CPU 上
+#     # 打印模型的结构, 用 summary 函数，它的作用是打印模型的结构，包括层的类型、参数数量、输出大小等
+#     print(summary(model, (1, 28, 28))) # 打印模型的结构，输入数据的大小为 (1, 28, 28)，即 1 通道的 28x28 图像
 
 
 
