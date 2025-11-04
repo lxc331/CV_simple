@@ -105,8 +105,8 @@ if __name__ == '__main__':
     model = AlexNet()
     # 加载模型的参数
     model.load_state_dict(torch.load('./model/best_model.pth'))
-    # 测试模型
-    test_model(model, test_dataloader)
     # 测试模型在每个 batch 上的准确率
     test_model_on_batch(model, test_dataloader)
+    # 测试模型总的准确率
+    test_model(model, test_dataloader)
 

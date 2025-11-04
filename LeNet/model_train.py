@@ -6,7 +6,7 @@ import numpy as np # 导入 numpy 模块，用于数值计算
 import torch.utils.data as data # 导入 torch.utils.data 模块，用于处理数据集
 import matplotlib.pyplot as plt # 导入 matplotlib.pyplot 模块，用于可视化
 
-from model import LeNet # 从 model.py 中导入 LeNet 模型
+from model import LeNet # 从 model.py 中导入 AlexNet 模型
 import torch # 导入 torch 模块，用于张量计算
 from torch import nn # 导入 torch.nn 模块，用于定义神经网络层
 import copy # 导入 copy 模块，用于复制对象
@@ -28,8 +28,8 @@ def deal_train_and_val_data():
     # 定义数据加载器, DataLoader 是一个迭代器，它的作用是将数据集分成多个 batch，每个 batch 包含多个样本，这里是每个 batch 包含 64 个样本
     # shuffle=True 表示在每个 epoch 开始时，将数据集随机打乱，num_workers=4 表示使用 4 个线程来加载数据，加快加载速度
     # 定义训练集的数据加载器, 训练集的数据加载器的作用是将训练集分成多个 batch，每个 batch 包含 64 个样本，每个样本是一个 28x28 的图像和一个标签
-    train_dataloader = data.DataLoader(train_data, batch_size=64, shuffle=True, num_workers=4)
-    val_dataloader = data.DataLoader(val_data, batch_size=64, shuffle=True, num_workers=4)
+    train_dataloader = data.DataLoader(train_data, batch_size=32, shuffle=True, num_workers=4)
+    val_dataloader = data.DataLoader(val_data, batch_size=32, shuffle=True, num_workers=4)
 
     return train_dataloader, val_dataloader
 
@@ -144,8 +144,8 @@ def train_model(model, train_dataloader, val_dataloader, epochs):
     print('-' * 10)
     print('Total train time: {:.0f}m {:.0f}s'.format(total_time // 60, total_time % 60))
 
-    model.load_state_dict(best_model_wts)
-    torch.save(model.load_state_dict(best_model_wts), './model/best_model.pth')
+    # 保存最佳模型的参数
+    torch.save(best_model_wts, './model/best_model.pth')
 
     # 先将训练过程的轮数以及每轮的训练集损失值、训练集准确率、验证集损失值、验证集准确率转换为 pandas 的 dataFrame 格式, 用于后续的分析和可视化
     train_process = pd.DataFrame({
@@ -189,7 +189,7 @@ def matplot_acc_loss(train_process):
 if __name__ == '__main__':
     train_dataloader, val_dataloader = deal_train_and_val_data()
     LeNetModel = LeNet()
-    train_process = train_model(LeNetModel, train_dataloader, val_dataloader, 10)
+    train_process = train_model(LeNetModel, train_dataloader, val_dataloader, 20)
     matplot_acc_loss(train_process)
 
 

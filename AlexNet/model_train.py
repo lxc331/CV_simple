@@ -15,7 +15,7 @@ import pandas as pd
 # 定义一个函数，用于处理训练集和验证集的数据
 def deal_train_and_val_data():
     # 加载FashionMNIST数据集, root 是数据集的根目录，train=True 表示加载训练集，download=True 表示如果数据集不存在，就从网上下载,
-    # transform 是对数据进行预处理的操作，这里是将图像 resize 到 28x28 大小，然后转换为张量，为了和模型的输入大小一致
+    # transform 是对数据进行预处理的操作，这里是将图像 resize 到 227 * 227 大小，然后转换为张量，为了和模型的输入大小一致
     # 这里的 transforms.Compose 是将多个预处理操作组合起来，这里是将 Resize 和 ToTensor 操作组合起来，先将图像 resize 到 28x28 大小，然后转换为张量
     dataset = FashionMNIST(root='./data',
                               train=True,
