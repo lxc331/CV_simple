@@ -1,4 +1,65 @@
+# PytorchCNN 项目简介
 
+## 项目概述
+PytorchCNN 是一个基于 PyTorch 框架构建的卷积神经网络（CNN）实验项目，旨在实现和比较多种经典的 CNN 架构，包括 LeNet、AlexNet、VGG16 和 GoogLeNet。该项目使用 Fashion-MNIST 数据集进行模型训练和测试。
+
+## 项目结构
+```
+PytorchCNN/
+├── AlexNet/           # AlexNet 模型实现
+├── GoogLeNet/         # GoogLeNet 模型实现  
+├── LeNet/             # LeNet 模型实现
+├── VGG16/             # VGG16 模型实现
+├── pytorch_test.py    # PyTorch 测试脚本
+├── readme.md          # 项目说明文档
+└── real_image_database_process.py  # 实际图像数据库处理脚本
+```
+
+## 各子项目特点
+
+### AlexNet
+- 实现经典的 AlexNet 架构
+- 包含卷积层、池化层、全连接层等组件
+- 使用 ReLU 激活函数和 Dropout 正则化
+
+### GoogLeNet
+- 实现 GoogLeNet 架构及其核心的 Inception 模块
+- 采用多分支并行结构，提高计算效率
+- 在保持精度的同时减少参数数量
+
+### LeNet
+- 实现最经典的 LeNet-5 架构
+- 适合初学者理解 CNN 基本概念
+- 结构简单但功能完整
+
+### VGG16
+- 实现 VGG16 深度卷积网络
+- 使用多个小型卷积核堆叠的方式构建深层网络
+- 体现了"深度"对于网络性能的重要性
+
+## 主要功能
+- **数据处理**：加载和预处理 Fashion-MNIST 数据集
+- **模型训练**：支持 CPU/GPU 训练，可调节批次大小、学习率等超参数
+- **模型验证**：实时监控训练和验证准确率与损失
+- **结果可视化**：绘制训练过程中的准确率和损失曲线
+- **模型保存**：自动保存最佳模型权重
+
+## 技术栈
+- **框架**：PyTorch
+- **数据集**：Fashion-MNIST
+- **可视化**：matplotlib
+- **数据处理**：pandas, numpy
+
+## 应用场景
+- 深度学习教学与研究
+- CNN 架构对比实验
+- 图像分类算法验证
+- 模型性能基准测试
+
+这个项目为学习和理解经典 CNN 架构提供了一个完整的实践平台，特别适合深度学习初学者掌握卷积神经网络的基本原理和实现技巧。
+        
+
+## 附录
 ### 安装命令
 #### 清华源
 - pip install 包名 -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.douban.com
