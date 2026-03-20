@@ -1,5 +1,4 @@
-from pandas.core.dtypes.common import classes
-from torchvision.datasets import FashionMNIST # 从 torchvision.datasets 模块中导入 FashionMNIST 数据集
+from torchvision.datasets import ImageFolder  # 从 torchvision.datasets 模块中导入 FashionMNIST 数据集
 from torchvision import transforms # 导入 torchvision.transforms 模块，用于图像变换
 import numpy as np # 导入 numpy 模块，用于数值计算
 import torch.utils.data as data # 导入 torch.utils.data 模块，用于处理数据集
@@ -13,19 +12,25 @@ import pandas as pd
 
 # 定义一个函数，用于处理测试集的数据
 def deal_test_data():
-    # 加载FashionMNIST数据集, root 是数据集的根目录，train=False 表示加载测试集，download=True 表示如果数据集不存在，就从网上下载,
-    # transform 是对数据进行预处理的操作，这里是将图像 resize 到 28x28 大小，然后转换为张量，为了和模型的输入大小一致
-    # 这里的 transforms.Compose 是将多个预处理操作组合起来，这里是将 Resize 和 ToTensor 操作组合起来，先将图像 resize 到 28x28 大小，然后转换为张量
-    dataset = FashionMNIST(root='./data',
-                              train=False,
-                              download=True,
-                              transform=transforms.Compose([transforms.Resize(size=224), transforms.ToTensor()]))
+    # 测试集根目录
+    Root_TEST = './data/test'
+    # 定义图像归一化操作, 这里是将图像的像素值从 [0, 255] 转换为 [0, 1]，Normalize() 函数的作用是将图像的像素值归一化到 [0, 1] 范围内,有助于模型更快地收敛，并提高模型的性能
+    # 使用的均值和标准差是通过 mean_std.py 计算得到的
+    # 这一步不操作也可以，因为后面的 ToTensor() 函数也会将图像的像素值转换为 [0, 1] 范围内，但作用体现在Normalize() 函数中
+    # Normalize() 是正态分布的归一化操作，将图像的像素值转换为 [0, 1] 范围内的正态分布，使得数据处于激活函数梯度最大的区间，有助于模型更快地收敛，并提高模型的性能
+    normalize = transforms.Normalize(mean=[0.4853, 0.4523, 0.4146], std=[0.2617, 0.2544, 0.2580])
 
+    # 定义图像变换操作, 这里是将图像 resize 到 224x224 大小，然后转换为张量，返回一个函数，用于对图像进行变换操作
+    # ToTensor() 函数的作用是将图像转换为张量，将图像的像素值从 [0, 255] 转换为 [0, 1]，并将其转换为 torch.FloatTensor 类型
+    test_transform = transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor(), normalize])
+    # 加载数据集，另外这个操作会给路径下的图片进行自动标注标签，根据图片的文件夹名称来标注标签
+    test_data = ImageFolder(root=Root_TEST, transform=test_transform)
+    # print(train_data.class_to_idx) # 打印标签的映射关系，将标签映射到对应的索引
 
     # 定义数据加载器, DataLoader 是一个迭代器，它的作用是将数据集分成多个 batch，每个 batch 包含多个样本，这里是每个 batch 包含 1 个样本
     # shuffle=True 表示在每个 epoch 开始时，将数据集随机打乱，num_workers=0 表示使用 0 个线程来加载数据，加快加载速度
-    # 定义测试集的数据加载器, 测试集的数据加载器的作用是将测试集分成多个 batch，每个 batch 包含 64 个样本，每个样本是一个 28x28 的图像和一个标签
-    test_dataloader = data.DataLoader(dataset, batch_size=1, shuffle=False, num_workers=0)
+    # 定义测试集的数据加载器, 测试集的数据加载器的作用是将测试集分成多个 batch，每个 batch 包含 1 个样本，每个样本是一个 224x224 的图像和一个标签
+    test_dataloader = data.DataLoader(test_data, batch_size=1, shuffle=False, num_workers=0)
 
     return test_dataloader
 
@@ -45,7 +50,7 @@ def test_model(model, test_dataloader):
             test_data_x = test_data_x.to(device)
             # 将测试集的标签移动到 指定的设备上
             test_data_y = test_data_y.to(device)
-            # 切换模型到评估模式, 评估模式下，模型的行为会和训练模式下不同, 例如 Dropout 层会被关闭, BatchNorm 层会使用训练时的统计信息
+            # 切换模型到评估模式, 评估模式下，模型的行为会和训练模式下不同, 例如 Dropout 层会被关闭, BatchNorm 层会使用训练时的统计信息，
             # 这是因为在训练模式下，Dropout 层会随机将输入的一些元素设为 0，而在评估模式下，Dropout 层会将所有元素都设为 1，
             # 这是为了保持模型的稳定性，避免在评估时因为随机失活而导致的结果不一致
             model.eval()
@@ -69,13 +74,12 @@ def test_model(model, test_dataloader):
 
 # 定义一个函数，用于测试每个 batch(这里是 1 个样本) 上的预测与真实标签是否相等
 def test_model_on_batch(model, test_dataloader):
-    # 将模型移动到 指定的设备上
+    # 将模型移动到指定的设备上
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = model.to(device)
 
-    # 定义类别名称, 这里是 FashionMNIST 数据集的类别名称
-    classes = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
-               'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+    # 定义类别名称, 这里是数据集的类别名称
+    classes = ['Cat', 'Dog']
     # 只进行前向传播，不计算梯度，从而节省内存，加快运行速度
     with torch.no_grad(): # no_grad 上下文管理器, 用于在不计算梯度的情况下进行前向传播, 从而节省内存, 加快运行速度
         for b_x, b_y in test_dataloader:
