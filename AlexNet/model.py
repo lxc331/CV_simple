@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-from torchsummary import summary
+# from torchsummary import summary
 import torch.nn.functional as F
 
 # 定义 AlexNet 模型, 包含5个卷积层和3个全连接层
@@ -53,4 +53,5 @@ if __name__ == '__main__':
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model = AlexNet().to(device)
 
-    summary(model, (1, 227, 227))
+    # print(model)
+    # summary(model, (1, 227, 227))

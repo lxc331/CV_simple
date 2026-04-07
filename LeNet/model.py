@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-from torchsummary import summary
+# from torchsummary import summary
 
 # 定义LeNet模型, 包含5个卷积层和3个全连接层
 # nn.Module 就是上层接口的实现类，即pytorch实现类
@@ -39,7 +39,7 @@ if __name__ == '__main__': # 用主函数测试模型的前向传播
     # 实例化模型
     model = LeNet().to(device) # 将模型移动到 GPU 上或者 CPU 上
     # 打印模型的结构, 用 summary 函数，它的作用是打印模型的结构，包括层的类型、参数数量、输出大小等
-    print(summary(model, (1, 28, 28))) # 打印模型的结构，输入数据的大小为 (1, 28, 28)，即 1 通道的 28x28 图像
+    # print(summary(model, (1, 28, 28))) # 打印模型的结构，输入数据的大小为 (1, 28, 28)，即 1 通道的 28x28 图像
 
 
 
