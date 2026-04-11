@@ -35,8 +35,8 @@ def deal_train_and_val_data():
     # 定义数据加载器, DataLoader 是一个迭代器，它的作用是将数据集分成多个 batch，每个 batch 包含多个样本，这里是每个 batch 包含 64 个样本
     # shuffle=True 表示在每个 epoch 开始时，将数据集随机打乱，num_workers=4 表示使用 4 个线程来加载数据，加快加载速度
     # 定义训练集的数据加载器, 训练集的数据加载器的作用是将训练集分成多个 batch，每个 batch 包含 64 个样本，每个样本是一个 28x28 的图像和一个标签
-    train_dataloader = data.DataLoader(dataset=train_data, batch_size=16, shuffle=True, num_workers=4)
-    val_dataloader = data.DataLoader(dataset=val_data, batch_size=16, shuffle=True, num_workers=4)
+    train_dataloader = data.DataLoader(dataset=train_data, batch_size=20, shuffle=True, num_workers=2)
+    val_dataloader = data.DataLoader(dataset=val_data, batch_size=20, shuffle=True, num_workers=2)
 
     return train_dataloader, val_dataloader
 

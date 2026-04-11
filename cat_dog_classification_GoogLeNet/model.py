@@ -113,4 +113,4 @@ class GoogLeNet(nn.Module):
 if __name__ == '__main__':
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = GoogLeNet(Inception).to(device)
-    summary(model, input_size=(1, 224, 224))
+    summary(model, input_size=(3, 224, 224))

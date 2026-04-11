@@ -108,4 +108,4 @@ if __name__ == '__main__':
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model = VGG16().to(device)
 
-    # summary(model, (1, 224, 224))
+    summary(model, (1, 224, 224))

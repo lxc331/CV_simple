@@ -3,4 +3,8 @@
   <component name="Black">
     <option name="sdkName" value="pytorch" />
   </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Remote Python 3.10.12 (sftp://root@192.168.34.52:30375/root/pycharm_python.sh)" project-jdk-type="Python SDK" />
+  <component name="PyPackaging">
+    <option name="earlyReleasesAsUpgrades" value="true" />
+  </component>
 </project>
