@@ -20,7 +20,7 @@ def deal_train_and_val_data():
     # 使用的均值和标准差是通过 mean_std.py 计算得到的
     # 这一步不操作也可以，因为后面的 ToTensor() 函数也会将图像的像素值转换为 [0, 1] 范围内，但作用体现在Normalize() 函数中
     # Normalize() 是正态分布的归一化操作，将图像的像素值转换为 [0, 1] 范围内的正态分布，使得数据处于激活函数梯度最大的区间，有助于模型更快地收敛，并提高模型的性能
-    normalize = transforms.Normalize(mean=[0.4853, 0.4523, 0.4146], std=[0.2617, 0.2544, 0.2580])
+    normalize = transforms.Normalize(mean=[0.4853, 0.4523, 0.4146], std=[0.2617, 0.2544, 0.2579])
 
     # 定义图像变换操作, 这里是将图像 resize 到 224x224 大小，然后转换为张量，返回一个函数，用于对图像进行变换操作
     # ToTensor() 函数的作用是将图像转换为张量，将图像的像素值从 [0, 255] 转换为 [0, 1]，并将其转换为 torch.FloatTensor 类型
@@ -46,8 +46,8 @@ def train_model(model, train_dataloader, val_dataloader, epochs):
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     # 定义损失函数, 这里是使用交叉熵损失函数, 它的作用是计算模型输出和真实标签之间的差异, 用于训练模型
     criterion = nn.CrossEntropyLoss()
-    # 定义优化器, 这里是使用 Adam 优化器, 它的作用是根据损失函数的梯度来更新模型的参数, 用于训练模型, 学习率为 0.001
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+    # 定义优化器, 这里是使用 Adam 优化器, 它的作用是根据损失函数的梯度来更新模型的参数, 用于训练模型, 学习率为 0.001, 权重衰减率为 0.0005
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.005, weight_decay=0.0005)
     # 将模型移动到 GPU 上或者 CPU 上
     model = model.to(device)
     # 定义最佳模型的权重, 这里是将当前模型的权重复制给 best_model_wts, 用于后续的模型保存
@@ -196,7 +196,7 @@ def matplot_acc_loss(train_process):
 if __name__ == '__main__':
     train_dataloader, val_dataloader = deal_train_and_val_data()
     GoogLeNetModel = GoogLeNet(Inception)
-    train_process = train_model(GoogLeNetModel, train_dataloader, val_dataloader, 10)
+    train_process = train_model(GoogLeNetModel, train_dataloader, val_dataloader, 30)
     matplot_acc_loss(train_process)
 
 
