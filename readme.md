@@ -3,51 +3,67 @@
 ## 项目概述
 PytorchCNN 是一个基于 PyTorch 深度学习框架构建的卷积神经网络（CNN）实验项目集合。该项目旨在实现和比较多个经典的 CNN 架构，包括 LeNet、AlexNet、VGG16、GoogLeNet 和 ResNet，并在不同数据集上进行训练和测试，以展示各种网络架构的特点和性能差异。
 
-## 项目结构
-```
-PytorchCNN/
-├── AlexNet/                    # AlexNet 模型实现
-│   ├── model.py               # AlexNet 网络结构定义
-│   ├── model_train.py         # 训练脚本
-│   ├── model_test.py          # 测试脚本
-│   ├── model/                 # 模型保存目录
-│   ├── train_parameter/       # 训练参数和结果
-│   └── *.png                  # 结构图和说明图片
-├── GoogLeNet/                 # GoogLeNet 模型实现
-│   ├── model.py               # GoogLeNet 网络结构定义
-│   ├── model_train.py         # 训练脚本
-│   ├── model_test.py          # 测试脚本
-│   ├── model/                 # 模型保存目录
-│   └── *.png                  # 结构图和说明图片
-├── LeNet/                     # LeNet 模型实现
-│   ├── model.py               # LeNet 网络结构定义
-│   ├── model_train.py         # 训练脚本
-│   ├── model_test.py          # 测试脚本
-│   ├── model/                 # 模型保存目录
-│   └── *.png                  # 结构图和说明图片
-├── ResNet/                    # ResNet 模型实现
-│   ├── model.py               # ResNet 网络结构定义
-│   ├── model_train.py         # 训练脚本
-│   ├── model_test.py          # 测试脚本
-│   └── *.png                  # 结构图和说明图片
-├── VGG16/                     # VGG16 模型实现
-│   ├── model.py               # VGG16 网络结构定义
-│   ├── model_train.py         # 训练脚本
-│   ├── model_test.py          # 测试脚本
-│   └── *.png                  # 结构图和说明图片
-├── cat_dog_classification_GoogLeNet/  # 猫狗分类项目
-│   ├── model.py               # 猫狗分类 GoogLeNet 模型
-│   ├── model_train.py         # 训练脚本
-│   ├── model_test.py          # 测试脚本
-│   ├── model_interference.py  # 推理脚本
-│   ├── real_image_database_process.py  # 数据处理脚本
-│   ├── mean_std.py            # 计算数据集均值和标准差
-│   ├── data/                  # 数据集目录
-│   └── model/                 # 模型保存目录
-├── pytorch_test.py            # PyTorch 基础测试脚本
-├── readme.md                  # 项目说明文档
-└── 自有数据集建议.txt          # 数据集使用建议
-```
+## 项目结构 
+ ``` 
+ PytorchCNN/ 
+ ├── AlexNet/                    # AlexNet 模型实现 
+ │   ├── data/                  # 数据集目录 
+ │   ├── model/                 # 模型保存目录 
+ │   ├── train_parameter/       # 训练参数和结果 
+ │   ├── model.py               # AlexNet 网络结构定义 
+ │   ├── model_train.py         # 训练脚本 
+ │   ├── model_test.py          # 测试脚本 
+ │   └── *.png                  # 结构图和说明图片 
+ ├── GoogLeNet/                 # GoogLeNet 模型实现 
+ │   ├── data/                  # 数据集目录 
+ │   ├── model/                 # 模型保存目录 
+ │   ├── train_parameter/       # 训练参数和结果 
+ │   ├── model.py               # GoogLeNet 网络结构定义 
+ │   ├── model_train.py         # 训练脚本 
+ │   ├── model_test.py          # 测试脚本 
+ │   └── *.png                  # 结构图和说明图片 
+ ├── LeNet/                     # LeNet 模型实现 
+ │   ├── data/                  # 数据集目录 
+ │   ├── model/                 # 模型保存目录 
+ │   ├── train_parameter/       # 训练参数和结果 
+ │   ├── model.py               # LeNet 网络结构定义 
+ │   ├── model_train.py         # 训练脚本 
+ │   ├── model_test.py          # 测试脚本 
+ │   └── *.png                  # 结构图和说明图片 
+ ├── ResNet/                    # ResNet 模型实现 
+ │   ├── data/                  # 数据集目录 
+ │   ├── model/                 # 模型保存目录 
+ │   ├── train_parameter/       # 训练参数和结果 
+ │   ├── model.py               # ResNet 网络结构定义 
+ │   ├── model_train.py         # 训练脚本 
+ │   ├── model_test.py          # 测试脚本 
+ │   └── *.png                  # 结构图和说明图片 
+ ├── VGG16/                     # VGG16 模型实现 
+ │   ├── data/                  # 数据集目录 
+ │   ├── model/                 # 模型保存目录 
+ │   ├── train_parameter/       # 训练参数和结果 
+ │   ├── model.py               # VGG16 网络结构定义 
+ │   ├── model_train.py         # 训练脚本 
+ │   ├── model_test.py          # 测试脚本 
+ │   └── *.png                  # 结构图和说明图片 
+ ├── cat_dog_classification_GoogLeNet/  # 猫狗分类项目 
+ │   ├── data/                  # 数据集目录 
+ │   ├── model/                 # 模型保存目录 
+ │   ├── model.py               # 猫狗分类 GoogLeNet 模型 
+ │   ├── model_train.py         # 训练脚本 
+ │   ├── model_test.py          # 测试脚本 
+ │   ├── model_interference.py  # 推理脚本 
+ │   ├── real_image_database_process.py  # 数据处理脚本 
+ │   └── mean_std.py            # 计算数据集均值和标准差 
+ ├── mask_detection_ResNet18/    # 口罩检测项目 
+ │   ├── data/                  # 数据集目录 
+ │   ├── model/                 # 模型保存目录 
+ │   ├── model.py               # 口罩检测 ResNet18 模型 
+ │   ├── model_train.py         # 训练脚本 
+ │   └── model_test.py          # 测试脚本 
+ ├── readme.md                  # 项目说明文档 
+ └── .gitignore                 # Git 忽略文件配置 
+ ```
 
 ## 各子项目特点
 
@@ -81,11 +97,17 @@ PytorchCNN/
 - 使网络可以训练得更深，性能更好
 - 在多个视觉任务中取得了优异的表现
 
-### 猫狗分类项目
-- 基于 GoogLeNet 架构的猫狗图像分类任务
-- 包含完整的数据预处理、模型训练、测试和推理流程
-- 提供了真实图像数据集处理的完整解决方案
-- 包含数据集划分、归一化参数计算等实用工具
+### 猫狗分类项目 
+ - 基于 GoogLeNet 架构的猫狗图像分类任务 
+ - 包含完整的数据预处理、模型训练、测试和推理流程 
+ - 提供了真实图像数据集处理的完整解决方案 
+ - 包含数据集划分、归一化参数计算等实用工具 
+
+### 口罩检测项目 
+ - 基于 ResNet18 架构的口罩佩戴检测任务 
+ - 包含完整的数据集处理、模型训练和测试流程 
+ - 支持带口罩和不带口罩的二分类检测 
+ - 提供了实际应用场景的解决方案
 
 ## 主要功能
 1. **数据处理**: 支持多种图像格式，自动划分训练集和验证集，包含数据增强功能
